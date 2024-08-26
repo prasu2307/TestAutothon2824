@@ -3,6 +3,7 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support import expected_conditions as EC
 
 # capabilities = {
@@ -20,9 +21,9 @@ def driver():
     options.udid = 'emulator-5554'
     options.app_package = 'com.google.android.youtube'
     options.app_activity = 'com.google.android.youtube.app.honeycomb.Shell$HomeActivity'
-    options.device_name = 'Pixel 4 API 33'
+    options.device_name = 'Pixel 8 Pro API 35'
     options.automation_name = 'UiAutomator2'
-    options.platformVersion = '13'
+    options.platformVersion = '15'
     options.auto_grant_permissions = True
     driver = webdriver.Remote("http://127.0.0.1:4723", options=options)
     yield driver
