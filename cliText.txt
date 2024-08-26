@@ -1,0 +1,30 @@
+Points to remembers:
+1. We need to pass environment to run individual or multiple test cases. 
+   Acceptable values are : 'non-prod'
+2. We need to pass marker names if we are running individual test case
+ 
+# Sample Command to run individual Testcase. (Remember to update the TC ID based on your requirement)
+python -m pytest -v -m Smoketest --nunitxml=Reports/nunit-results.xml --junitxml=Reports/junit-results.xml .\testCases\ --env="uat"
+
+# Sample Command to run all testcases present in one test file. (Remember to update the testcase filename based on your requirement)
+python -m pytest -v --nunitxml=Reports/nunit-results.xml --junitxml=Reports/junit-results.xml .\testCases\test_LoginPage.py --env="uat"
+
+# Sample Command to run the complete regression suite
+python -m pytest -v --nunitxml=Reports/nunit-results.xml --junitxml=Reports/junit-results.xml .\testCases\ --env="uat"
+
+# Sample Command for parallel execution
+python -m pytest -v -n=2 -m markername --nunitxml=Reports/nunit-results.xml --junitxml=Reports/junit-results.xml .\testCases\ --env="uat"
+
+# Run TC using multiple markers at one instance
+python -m pytest -v -n=2 -m "name1 or name2" --nunitxml=Reports/nunit-results.xml --junitxml=Reports/junit-results.xml .\testCases\ --env="uat"
+
+# log in report 
+python -m pytest -v -s --capture=tee-sys --html=Reports\report.html --self-contained-html --nunitxml=Reports/nunit-results.xml --junitxml=Reports/junit-results.xml .\testCases\test_LoginPage.py
+
+# no log
+python -m pytest -v -s -p no:logging --html=Reports\report.html --self-contained-html --nunitxml=Reports/nunit-results.xml --junitxml=Reports/junit-results.xml .\testCases\test_LoginPage.py
+
+python -m pytest -v -s -p no:logging --html=Reports\report.html --css=Reports\assets\style.css --nunitxml=Reports/nunit-results.xml --junitxml=Reports/junit-results.xml .\testCases\test_LoginPage.py
+
+# Allure Report Generation with single html file without any dependencies
+allure generate --single-file .\Allure_reports\ --clean

@@ -1,0 +1,3 @@
+Module,Object,Type,Path
+HomePage,search_box,XPATH,//*[@id='id-search-field']
+HomePage,submit_search,XPATH,//*[@id='submit']
