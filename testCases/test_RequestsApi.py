@@ -1,5 +1,7 @@
+import pytest
 import requests
 
+@pytest.mark.requestsapidata
 # GET method to retrieve data
 def test_get_data():
     response = requests.get('https://fake-json-api.mock.beeceptor.com/users')
@@ -12,6 +14,7 @@ def test_get_data():
     print('first name is ',data[0]['name'])
     # return jsonify({"data": data_store}), 200
 
+@pytest.mark.requestsapidata
 # Post Method to post the data
 def test_make_post_request():
     url = "https://jsonplaceholder.typicode.com/posts"
