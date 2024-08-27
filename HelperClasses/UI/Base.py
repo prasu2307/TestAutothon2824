@@ -9,6 +9,7 @@ Fluent wait:    will wait for a max of n sec until a specific element is located
 """
 import functools
 import time
+from logging import exception
 
 import allure
 import pandas as pd
@@ -19,7 +20,7 @@ from selenium.common import NoSuchElementException, ElementNotVisibleException, 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-
+from appium.webdriver.common.appiumby import AppiumBy
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig, config
 
@@ -246,3 +247,26 @@ class Base:
     @fWaitFor
     def attach_logger(self, message, msg_name, UnivWaitFor=0):
         allure.attach(message, name=msg_name)
+
+# Read the element text using locatorname
+    @fWaitFor
+    def check_presence_of_AndroidElement(self, locator, env, xpath_val=None, UnivWaitFor=0):
+        """
+        Given locator, identify the locator type and path from the OR file and check the presence of element
+        """
+        return self.wait.until(ec.presence_of_element_located((getattr(AppiumBy, self.locatortype(locator, env)), self.locatorpath(locator, env, xpath_val))))
+
+    @fWaitFor
+    def androidClick(self, locator, env, xpath_val=None, UnivWaitFor=0):
+        """
+        Given locator, identify the locator type and path from the OR file and click on the element
+        """
+        try:
+            self.driver.find_element(getattr(AppiumBy, self.locatortype(locator, env)),
+                                     self.locatorpath(locator, env, xpath_val)).click()
+        except Exception:
+            self.driver.execute_script("arguments[0].scrollIntoView(true);",
+                                       self.driver.find_element(getattr(AppiumBy, self.locatortype(locator, env)),
+                                                                self.locatorpath(locator, env, xpath_val)))
+            self.driver.find_element(getattr(AppiumBy, self.locatortype(locator, env)),
+                                     self.locatorpath(locator, env, xpath_val)).click()

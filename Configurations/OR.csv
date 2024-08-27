@@ -1,3 +1,10 @@
 Module,Object,Type,Path
 HomePage,search_box,XPATH,//*[@id='id-search-field']
 HomePage,submit_search,XPATH,//*[@id='submit']
+,,,
+,,,
+,,,
+Android,search_suggestion,XPATH,//android.widget.TextView[@text='rick rolled (short version)']
+Android,search_icon,ACCESSIBILITY_ID,Search
+Android,search_text_bar,ID,com.google.android.youtube:id/search_edit_text
+Android,search_result,XPATH,"//android.view.ViewGroup[contains(@content-desc, 'Rick Rolled (Short Version)')]"
