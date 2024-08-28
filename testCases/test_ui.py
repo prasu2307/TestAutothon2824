@@ -25,4 +25,3 @@ class Test_Sample:
         sample.select_edition("India", env)
         sample.launch_newslink(env)
         sample.access_new_info(env)
-        # sample.sample_operation("getting started with python", env)

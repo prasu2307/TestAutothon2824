@@ -128,7 +128,7 @@ class Sample(Base):
             print(f"List of Dictionaries:\n{list_of_dicts}")
 
             # Open a file in write mode
-            with open('Outputs/ActualOutputs/news_information_ui_result.txt', 'w') as file:
+            with open('Outputs/ActualOutputs/news_information_ui_result.txt', 'w', encoding='utf-8') as file:
                 file.write(str(list_of_dicts))
 
             print("Data has been written to news_information_ui_result.txt")
