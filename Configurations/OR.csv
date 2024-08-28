@@ -17,6 +17,6 @@ HomePage,news_heading,XPATH,//div[@class='heading-part']/h1
 ,,,
 Android,search_suggestion,XPATH,//android.widget.TextView[@text='rick rolled (short version)']
 Android,get_products_btn,XPATH,//android.widget.Button
-Android,product_name,XPATH,"//android.widget.TextView[@text=""JBL Wireless Earbuds""]"
-Android,product_desc,XPATH,"//android.widget.TextView[@text=""High-quality wireless earbuds with noise cancellation and 20 hours of battery life.""]"
-Android,product_price,XPATH,"//android.widget.TextView[@text=""₹5999.0""]"
+Android,product_name,XPATH,//android.widget.TextView[@text="JBL Wireless Earbuds"]
+Android,product_desc,XPATH,//android.widget.TextView[@text="High-quality wireless earbuds with noise cancellation and 20 hours of battery life."]
+Android,product_price,XPATH,//android.widget.TextView[@text="₹5999.0"]
