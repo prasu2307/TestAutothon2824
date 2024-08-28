@@ -4,10 +4,13 @@ Website Navigation and Data Extraction Test case
 
 import time
 import pytest
+import os
 
 from HelperClasses.UI.Base import Base
 from HelperClasses.UI.Sample import Sample
 from utilities.readProperties import ReadConfig
+
+output_user_logpath = os.getcwd() + '\\Outputs'
 
 
 @pytest.mark.usefixtures("init_driver")
