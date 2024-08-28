@@ -15,12 +15,17 @@ class ReadConfig:
     @staticmethod
     def getApplicationURL(env):
         if env == 'non-prod':
-            return f"https://www.python.org/"
+            return f"https://indianexpress.com/"
 
     @staticmethod
     def getUserName():
         username = config.get('commonInfo', 'username')
         return username
+
+    @staticmethod
+    def getEpsilonTeamName():
+        team_name = config.get('commonInfo', 'team_name')
+        return team_name
 
     @staticmethod
     def getProjectName():

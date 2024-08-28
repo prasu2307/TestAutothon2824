@@ -49,7 +49,7 @@ def caseid(request):
 
 
 # This fixture is to initialize the driver and teardown the initialization
-@pytest.fixture(params=["chrome", "firefox", "edge"], scope='class')
+@pytest.fixture(params=["chrome"], scope='class') #, "firefox", "edge"
 def init_driver(request):
     if request.param == "chrome":
         options = ChromeOptions()

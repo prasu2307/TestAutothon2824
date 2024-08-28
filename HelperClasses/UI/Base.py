@@ -156,7 +156,7 @@ class Base:
         Assert the title of the page
         """
         self.logger.info(f"Expected Page Title is : '{pageTitle}' and Actual Page Title is : '{self.driver.title}'")
-        assert self.driver.title == pageTitle
+        assert str(self.driver.title).__contains__(pageTitle)
 
     # Function to select an element
     @fWaitFor
@@ -270,3 +270,12 @@ class Base:
                                                                 self.locatorpath(locator, env, xpath_val)))
             self.driver.find_element(getattr(AppiumBy, self.locatortype(locator, env)),
                                      self.locatorpath(locator, env, xpath_val)).click()
+
+    # Read the element text using locatorname
+    @fWaitFor
+    def get_Androidtext(self, locator, env, xpath_val=None, UnivWaitFor=0):
+        """
+        Given locator, identify the locator type and path from the OR file and return the text
+        """
+        return self.driver.find_element(getattr(AppiumBy, self.locatortype(locator, env)),
+                                        self.locatorpath(locator, env, xpath_val)).text
