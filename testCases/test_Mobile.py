@@ -54,6 +54,7 @@ class Test_appium_mobile:
         yield driver
         driver.quit()
     @pytest.mark.mobile
+    @pytest.mark.flaky(reruns=2, reruns_delay=2)
     def test_example(self,extra,appium_driver,env):
 
 

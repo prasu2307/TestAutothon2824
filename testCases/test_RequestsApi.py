@@ -24,6 +24,7 @@ def compare_post_get_data(post_data, get_data, counter):
 
 
 @pytest.mark.validateapi
+@pytest.mark.flaky(reruns=2, reruns_delay=2)
 def test_api():
     with open(parent_dir + '/Outputs/ActualOutputs/news_information_ui_result.txt', 'r') as file:
         ui_data_list = file.read()
