@@ -15,7 +15,7 @@ class ReadConfig:
     @staticmethod
     def getApplicationURL(env):
         if env == 'non-prod':
-            return f"https://www.python.org/"
+            return f"https://indianexpress.com/"
 
     @staticmethod
     def getUserName():

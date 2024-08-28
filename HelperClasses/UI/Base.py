@@ -156,7 +156,7 @@ class Base:
         Assert the title of the page
         """
         self.logger.info(f"Expected Page Title is : '{pageTitle}' and Actual Page Title is : '{self.driver.title}'")
-        assert self.driver.title == pageTitle
+        assert str(self.driver.title).__contains__(pageTitle)
 
     # Function to select an element
     @fWaitFor

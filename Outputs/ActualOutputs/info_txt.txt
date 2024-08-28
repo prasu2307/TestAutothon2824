@@ -1,0 +1,1 @@
+This folder contains the results file generated from the script during runtime
