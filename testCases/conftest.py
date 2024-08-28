@@ -129,18 +129,18 @@ def init_driver(request):
 @pytest.hookimpl(tryfirst=True)
 def pytest_sessionstart(session):
     try:
-        if os.path.exists(output_user_logpath + '\\Logs\\'):
-            # Clearing the logs before test runs
-            open(output_user_logpath + "\\Logs\\testlog.log", "w").close()
-
-        # Removing the screenshots and results reports before the test runs
-        if os.path.exists(output_user_logpath + '\\Reports\\'):
-            for root, dirs, files in os.walk(output_user_logpath + '\\Reports\\'):
-                for file in files:
-                    os.remove(os.path.join(root, file))
-            for root, dirs, files in os.walk(output_user_logpath + '\\Reports\\screenshots\\'):
-                for file in files:
-                    os.remove(os.path.join(root, file))
+        # if os.path.exists(output_user_logpath + '\\Logs\\'):
+        #     # Clearing the logs before test runs
+        #     open(output_user_logpath + "\\Logs\\testlog.log", "w").close()
+        #
+        # # Removing the screenshots and results reports before the test runs
+        # if os.path.exists(output_user_logpath + '\\Reports\\'):
+        #     for root, dirs, files in os.walk(output_user_logpath + '\\Reports\\'):
+        #         for file in files:
+        #             os.remove(os.path.join(root, file))
+        #     for root, dirs, files in os.walk(output_user_logpath + '\\Reports\\screenshots\\'):
+        #         for file in files:
+        #             os.remove(os.path.join(root, file))
 
         # # Removing the downloaded report files before the test runs
         # if os.path.exists(output_user_logpath + '\\ActualOutputs\\'):
