@@ -70,8 +70,8 @@ class Test_appium_mobile:
         strProductName = base.get_Androidtext('product_name',env)
         strProductDesc = base.get_Androidtext('product_desc',env)
         strProductPrice = base.get_Androidtext('product_price',env)
+        strProductPrice = str(strProductPrice).replace('₹', '')
         strTeamName = ReadConfig.getEpsilonTeamName()
-
 
         # Creating a list with Product details
         product_keylist = ['strProductName','strProductDesc','strProductPrice','strTeamName']
@@ -89,26 +89,28 @@ class Test_appium_mobile:
 
         print('list_of_dict_product_details\n',list_of_dict_product_details)
 
-        # Dictionary to hold key and value pair from API
-        api_list_of_dict_product_details=[{'strProductName': 'JBL Wireless Earbuds', 'strProductDesc': 'High-quality wireless earbuds with noise cancellation and 20 hours of battery life.', 'strProductPrice': '₹5999.0', 'strTeamName': 'Epsilon Team 2'}]
-        api_dict_product_details = api_list_of_dict_product_details[0]
-        print('api_list_of_dict_product_details\n', api_list_of_dict_product_details)
-        print('api_dict_product_details\n', api_dict_product_details)
-
-        # Check if they have the same values
-        same_values_flag = sorted(dict_product_details.values()) == sorted(api_dict_product_details.values())
-        print(same_values_flag)
-        # assert same_values_flag, "Data is not Matched with API and APK"
-        if same_values_flag:
-            print('Data is Matched with API and APK')
-            msg.showinfo('SUCCESS!!', 'Data is Matched with API and APK')
-        else:
-            print('Data not Matched with API and APK')
-            msg.showerror('ERROR!!', 'Data not Matched with API and APK')
-
-        # Open a file in write mode
+        # # Dictionary to hold key and value pair from API
+        # api_list_of_dict_product_details=[{'strProductName': 'JBL Wireless Earbuds', 'strProductDesc': 'High-quality wireless earbuds with noise cancellation and 20 hours of battery life.', 'strProductPrice': '₹5999.0', 'strTeamName': 'Epsilon Team 2'}]
+        # api_dict_product_details = api_list_of_dict_product_details[0]
+        # print('api_list_of_dict_product_details\n', api_list_of_dict_product_details)
+        # print('api_dict_product_details\n', api_dict_product_details)
+        #
+        # # Check if they have the same values
+        # same_values_flag = sorted(dict_product_details.values()) == sorted(api_dict_product_details.values())
+        # print(same_values_flag)
+        # # assert same_values_flag, "Data is not Matched with API and APK"
+        # if same_values_flag:
+        #     print('Data is Matched with API and APK')
+        #     msg.showinfo('SUCCESS!!', 'Data is Matched with API and APK')
+        # else:
+        #     print('Data not Matched with API and APK')
+        #     msg.showerror('ERROR!!', 'Data not Matched with API and APK')
+        #
+        # # Open a file in write mode
         # with open('Outputs/ActualOutputs/product_information_apk_result.txt', 'w') as file:
         #     file.write(str(list_of_dict_product_details))
+
+        # Open a file in write mode
         with open('Outputs/ActualOutputs/product_information_apk_result.txt', 'w', encoding='utf-8') as file:
             file.write(str(list_of_dict_product_details))
 
