@@ -63,11 +63,11 @@ class APIClient:
         processed_data = {}
         processed_data['name'] = self.get_config('TEAM', 'stepin')
         if 'date_time' in data.keys():
-            date_time = data['date_time']
+            date_time = data['date_time'].split('Updated: ')[1]
             print(f'{date_time = }')
 
             # Input date string
-            date_str = data['date_time']
+            date_str = date_time
             # Remove the time zone part from the date string
             date_str_without_tz = date_str[:-4]
 

@@ -13,12 +13,12 @@ print(f'{current_dir = }')
 parent_dir = os.path.dirname(current_dir)
 api_client = APIClient()
 
-@pytest.mark.requestsapidata
 # Post Method to post the data
 # Function to compare POST and GET data
 def compare_post_get_data(post_data, get_data):
     return post_data == get_data
 
+@pytest.mark.validateapi
 def test_api():
     with open(parent_dir + '/Outputs/ActualOutputs/news_information_ui_result.txt', 'r') as file:
         ui_data_list = file.read()

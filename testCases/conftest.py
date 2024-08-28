@@ -142,11 +142,11 @@ def pytest_sessionstart(session):
                 for file in files:
                     os.remove(os.path.join(root, file))
 
-        # Removing the downloaded report files before the test runs
-        if os.path.exists(output_user_logpath + '\\ActualOutputs\\'):
-            for root, dirs, files in os.walk(output_user_logpath + '\\ActualOutputs\\'):
-                for file in files:
-                    os.remove(os.path.join(root, file))
+        # # Removing the downloaded report files before the test runs
+        # if os.path.exists(output_user_logpath + '\\ActualOutputs\\'):
+        #     for root, dirs, files in os.walk(output_user_logpath + '\\ActualOutputs\\'):
+        #         for file in files:
+        #             os.remove(os.path.join(root, file))
 
         # Removing the allure-report json files before the test runs
         if os.path.exists(output_user_logpath + '\\Allure_reports\\'):
