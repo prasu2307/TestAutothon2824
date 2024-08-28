@@ -4,19 +4,19 @@ HomePage,submit_search,XPATH,//*[@id='submit']
 HomePage,edition_dropdown,XPATH,//div[1][@class='in-edition']/div[1]/ul[@class='inh-dropdrown']
 HomePage,dropdown_eles,XPATH,//div[1][@class='in-edition']/div[1]/ul[@class='inh-dropdrown opened']/li
 HomePage,dropdown_select,XPATH,//div[1][@class='in-edition']/div[1]/ul[@class='inh-dropdrown opened']/li[text()='%s']
-,launch_business,XPATH,//nav/div/ul/li/a[@href='https://indianexpress.com/section/business/']
-,carousel_eles,XPATH,//li[@role='presentation']/button
-,carousel_ele,XPATH,//li[@role='presentation']/button[text()=%s and @aria-label='%s of 5']
-,news_link_1,XPATH,//li[@class='swiper-slide slick-slide slick-current slick-active' and @data-slick-index = '0']
-,news_link_2,XPATH,//li[@class='swiper-slide content_wall slick-slide slick-current slick-active' and @data-slick-index = '1']
-,news_link_3,XPATH,//li[@class='swiper-slide slick-slide slick-current slick-active' and @data-slick-index = '2']
-,date_ele,XPATH,"//*[@id=""storycenterbyline""]/div[1]/span"
-,news_heading,XPATH,//div[@class='heading-part']/h1
+HomePage,launch_business,XPATH,//nav/div/ul/li/a[@href='https://indianexpress.com/section/business/']
+HomePage,carousel_eles,XPATH,//li[@role='presentation']/button
+HomePage,carousel_ele,XPATH,//li[@role='presentation']/button[text()=%s and @aria-label='%s of 5']
+HomePage,news_link_1,XPATH,//li[@class='swiper-slide slick-slide slick-current slick-active' and @data-slick-index = '0']
+HomePage,news_link_2,XPATH,//li[@class='swiper-slide content_wall slick-slide slick-current slick-active' and @data-slick-index = '1']
+HomePage,news_link_3,XPATH,//li[@class='swiper-slide slick-slide slick-current slick-active' and @data-slick-index = '2']
+HomePage,date_ele,XPATH,"//*[@id=""storycenterbyline""]/div[1]/span"
+HomePage,news_heading,XPATH,//div[@class='heading-part']/h1
 ,,,
 ,,,
 ,,,
 Android,search_suggestion,XPATH,//android.widget.TextView[@text='rick rolled (short version)']
 Android,get_products_btn,XPATH,//android.widget.Button
-Android,product_name,XPATH,//android.widget.TextView[@text="JBL Wireless Earbuds"]
-Android,product_desc,XPATH,//android.widget.TextView[@text="High-quality wireless earbuds with noise cancellation and 20 hours of battery life."]
-Android,product_price,XPATH,//android.widget.TextView[@text="₹5999.0"]
+Android,product_name,XPATH,"//android.widget.TextView[@text=""JBL Wireless Earbuds""]"
+Android,product_desc,XPATH,"//android.widget.TextView[@text=""High-quality wireless earbuds with noise cancellation and 20 hours of battery life.""]"
+Android,product_price,XPATH,"//android.widget.TextView[@text=""₹5999.0""]"
