@@ -23,6 +23,11 @@ class ReadConfig:
         return username
 
     @staticmethod
+    def getEpsilonTeamName():
+        team_name = config.get('commonInfo', 'team_name')
+        return team_name
+
+    @staticmethod
     def getProjectName():
         projectname = config.get('commonInfo', 'projectname')
         return projectname
