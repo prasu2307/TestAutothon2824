@@ -1,3 +1,4 @@
+import allure
 import pytest
 from appium import webdriver
 from appium.options.android import UiAutomator2Options
@@ -7,6 +8,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support import expected_conditions as EC
 from tkinter import messagebox as msg
 
+from HelperClasses.API.ValidateAPI import validate_api
 from HelperClasses.UI.Base import Base
 from utilities.readProperties import ReadConfig
 
@@ -111,9 +113,13 @@ class Test_appium_mobile:
         # with open('Outputs/ActualOutputs/product_information_apk_result.txt', 'w') as file:
         #     file.write(str(list_of_dict_product_details))
 
-        # Open a file in write mode
-        with open('Outputs/ActualOutputs/product_information_apk_result.txt', 'w', encoding='utf-8') as file:
-            file.write(str(list_of_dict_product_details))
+        # # Open a file in write mode
+        # with open('Outputs/ActualOutputs/product_information_apk_result.txt', 'w', encoding='utf-8') as file:
+        #     file.write(str(list_of_dict_product_details))
+
+        with allure.step(f'Validating API using APPIUM data'):
+            # Validating the API requests using data retrieved from APPIUM
+            validate_api(list_of_dict_product_details)
 
 
 

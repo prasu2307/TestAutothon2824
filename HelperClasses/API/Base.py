@@ -63,7 +63,10 @@ class APIClient:
         processed_data = {}
         processed_data['name'] = self.get_config('TEAM', 'stepin')
         if 'date_time' in data.keys():
-            date_time = data['date_time'].split('Updated: ')[1]
+            if 'Updated:' in data['date_time']:
+                date_time = data['date_time'].split('Updated: ')[1]
+            else:
+                date_time = data['date_time']
             print(f'{date_time = }')
 
             # Input date string
@@ -85,7 +88,7 @@ class APIClient:
 
             # Print the formatted date
             print(formatted_date)
-            processed_data['price'] = formatted_date
+            processed_data['price'] = int(formatted_date)
 
 
         if 'link' in data.keys():
@@ -103,7 +106,7 @@ class APIClient:
         if 'strProductPrice' in data.keys():
 
 
-            processed_data['price'] = data['strProductPrice'].replace("₹", "").replace("â‚¹","")
+            processed_data['price'] = int(float(data['strProductPrice'].replace("₹", "").replace("â‚¹","")))
 
 
         print(f'{processed_data = }')

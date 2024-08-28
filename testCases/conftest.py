@@ -29,6 +29,11 @@ from selenium import webdriver
 output_user_logpath = os.getcwd() + '\\Outputs'
 logger = LogGen.loggen()
 
+browsername = ReadConfig.getBrowserName()
+headless_flag = ReadConfig.get_headless_mode()
+items = browsername.split(", ")
+quoted_items = [f"{item}" for item in items]
+
 
 def pytest_addoption(parser):
     config = configparser.ConfigParser()
@@ -49,17 +54,19 @@ def caseid(request):
 
 
 # This fixture is to initialize the driver and teardown the initialization
-@pytest.fixture(params=["chrome"], scope='class') #, "firefox", "edge"
+@pytest.fixture(params=quoted_items, scope='class') #, "firefox", "edge"
 def init_driver(request):
-    if request.param == "chrome":
+    if str(request.param).lower() == "chrome":
         options = ChromeOptions()
         prefs = {'profile.default_content_setting_values.automatic_downloads': 1}
         prefs["profile.default_content_settings.popups"] = 0
         # getcwd should always return the root directory of the framework
         prefs["download.default_directory"] = f"{output_user_logpath}\\ActualOutputs"
-        # options.add_argument("--headless")
-        # # ***Enable below line when script is integrated with CICD pipeline or script is being executed in headless mode
-        # options.add_argument("--window-size=1920,1080")
+        if str(headless_flag).lower() == 'true':
+            options.add_argument("--headless")
+            # Enable below line when script is integrated with CICD pipeline or script is being
+            # executed in headless mode
+            options.add_argument("--window-size=1920,1080")
         options.add_argument("--start-maximized")
         options.add_argument('--disable-gpu')
         options.add_argument("--log-level=3")  # fatal
@@ -70,7 +77,7 @@ def init_driver(request):
         web_driver = webdriver.Chrome(service=Service(), options=options)
         params = {'behavior': 'allow', 'downloadPath': f"{output_user_logpath}\\ActualOutputs"}
         web_driver.execute_cdp_cmd('Page.setDownloadBehavior', params)
-    if request.param == "firefox":
+    if str(request.param).lower() == "firefox":
         options = FirefoxOptions()
         profile = webdriver.FirefoxProfile()
 
@@ -81,10 +88,10 @@ def init_driver(request):
         profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'application/pdf')  # Add MIME types as needed
         profile.set_preference('pdfjs.disabled', True)  # Disable built-in PDF viewer
 
-        # Add options similar to Chrome
-        # options.headless = True  # Set to True if running in headless mode
-        # options.add_argument("--width=1920")
-        # options.add_argument("--height=1080")
+        if str(headless_flag).lower() == 'true':
+            options.headless = True  # Set to True if running in headless mode
+            options.add_argument("--width=1920")
+            options.add_argument("--height=1080")
         options.add_argument("--start-maximized")
         options.add_argument('--disable-gpu')
         options.log.level = "fatal"  # Set log level
@@ -94,7 +101,7 @@ def init_driver(request):
 
         # Initialize the Firefox driver with options and profile
         web_driver = webdriver.Firefox(service=Service(), options=options)
-    if request.param == "edge":
+    if str(request.param).lower() == "edge":
         options = EdgeOptions()
 
         # Set preferences similar to Chrome
@@ -105,9 +112,9 @@ def init_driver(request):
         }
         options.add_experimental_option("prefs", prefs)
 
-        # Add options similar to Chrome
-        # options.add_argument("--headless")  # Enable headless mode if needed
-        # options.add_argument("--window-size=1920,1080")
+        if str(headless_flag).lower() == 'true':
+            options.add_argument("--headless")  # Enable headless mode if needed
+            options.add_argument("--window-size=1920,1080")
         options.add_argument("--start-maximized")
         options.add_argument('--disable-gpu')
         options.add_argument("--log-level=3")  # fatal
@@ -129,9 +136,9 @@ def init_driver(request):
 @pytest.hookimpl(tryfirst=True)
 def pytest_sessionstart(session):
     try:
-        # if os.path.exists(output_user_logpath + '\\Logs\\'):
-        #     # Clearing the logs before test runs
-        #     open(output_user_logpath + "\\Logs\\testlog.log", "w").close()
+        if os.path.exists(output_user_logpath + '\\Logs\\'):
+            # Clearing the logs before test runs
+            open(output_user_logpath + "\\Logs\\testlog.log", "w").close()
         #
         # # Removing the screenshots and results reports before the test runs
         # if os.path.exists(output_user_logpath + '\\Reports\\'):

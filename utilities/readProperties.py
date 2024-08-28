@@ -18,9 +18,9 @@ class ReadConfig:
             return f"https://indianexpress.com/"
 
     @staticmethod
-    def getUserName():
-        username = config.get('commonInfo', 'username')
-        return username
+    def get_news_name():
+        news_link = config.get('commonInfo', 'news_link')
+        return news_link
 
     @staticmethod
     def getEpsilonTeamName():
@@ -28,14 +28,14 @@ class ReadConfig:
         return team_name
 
     @staticmethod
-    def getProjectName():
-        projectname = config.get('commonInfo', 'projectname')
-        return projectname
+    def getBrowserName():
+        browsername = config.get('commonInfo', 'browser')
+        return browsername
 
     @staticmethod
-    def getPassword():
-        password = config.get('commonInfo', 'password')
-        return password
+    def get_no_of_carousel():
+        no_of_carousel = config.get('commonInfo', 'no_of_carousel')
+        return no_of_carousel
 
     @staticmethod
     def getORFilePath(env):
@@ -43,11 +43,11 @@ class ReadConfig:
             OR = config.get('commonInfo', 'OR_Testenv')
         return OR
 
-    # @staticmethod
-    # def getTestDataPath():
-    #     testdata = config.get('commonInfo', 'TestData')
-    #     return testdata
-    #
+    @staticmethod
+    def get_headless_mode():
+        headless = config.get('commonInfo', 'headless')
+        return headless
+
     # @staticmethod
     # def getS2TPath():
     #     s2tpath = config.get('commonInfo', 's2t')
