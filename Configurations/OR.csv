@@ -1,6 +1,17 @@
 Module,Object,Type,Path
 HomePage,search_box,XPATH,//*[@id='id-search-field']
 HomePage,submit_search,XPATH,//*[@id='submit']
+HomePage,edition_dropdown,XPATH,//div[1][@class='in-edition']/div[1]/ul[@class='inh-dropdrown']
+HomePage,dropdown_eles,XPATH,//div[1][@class='in-edition']/div[1]/ul[@class='inh-dropdrown opened']/li
+HomePage,dropdown_select,XPATH,//div[1][@class='in-edition']/div[1]/ul[@class='inh-dropdrown opened']/li[text()='%s']
+HomePage,launch_business,XPATH,//nav/div/ul/li/a[@href='https://indianexpress.com/section/business/']
+HomePage,carousel_eles,XPATH,//li[@role='presentation']/button
+HomePage,carousel_ele,XPATH,//li[@role='presentation']/button[text()=%s and @aria-label='%s of 5']
+HomePage,news_link_1,XPATH,//li[@class='swiper-slide slick-slide slick-current slick-active' and @data-slick-index = '0']
+HomePage,news_link_2,XPATH,//li[@class='swiper-slide content_wall slick-slide slick-current slick-active' and @data-slick-index = '1']
+HomePage,news_link_3,XPATH,//li[@class='swiper-slide slick-slide slick-current slick-active' and @data-slick-index = '2']
+HomePage,date_ele,XPATH,"//*[@id=""storycenterbyline""]/div[1]/span"
+HomePage,news_heading,XPATH,//div[@class='heading-part']/h1
 ,,,
 ,,,
 ,,,
