@@ -1,1 +1,0 @@
-[{'strProductName': 'JBL Wireless Earbuds', 'strProductDesc': 'High-quality wireless earbuds with noise cancellation and 20 hours of battery life.', 'strProductPrice': '₹5999.0', 'strTeamName': 'Epsilon Team 2'}]
