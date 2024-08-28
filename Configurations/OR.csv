@@ -16,6 +16,7 @@ HomePage,dropdown_select,XPATH,//div[1][@class='in-edition']/div[1]/ul[@class='i
 ,,,
 ,,,
 Android,search_suggestion,XPATH,//android.widget.TextView[@text='rick rolled (short version)']
-Android,search_icon,ACCESSIBILITY_ID,Search
-Android,search_text_bar,ID,com.google.android.youtube:id/search_edit_text
-Android,search_result,XPATH,"//android.view.ViewGroup[contains(@content-desc, 'Rick Rolled (Short Version)')]"
+Android,get_products_btn,XPATH,//android.widget.Button
+Android,product_name,XPATH,//android.widget.TextView[@text="JBL Wireless Earbuds"]
+Android,product_desc,XPATH,//android.widget.TextView[@text="High-quality wireless earbuds with noise cancellation and 20 hours of battery life."]
+Android,product_price,XPATH,//android.widget.TextView[@text="₹5999.0"]
