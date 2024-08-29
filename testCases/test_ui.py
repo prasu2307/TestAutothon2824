@@ -12,7 +12,7 @@ output_user_logpath = os.getcwd() + '\\Outputs'
 
 
 @pytest.mark.usefixtures("init_driver")
-class Test_Sample:
+class Test_UI:
     @pytest.mark.ui_test
     @pytest.mark.flaky(reruns=1, reruns_delay=2)
     def test_ui_site(self, extra, env, request, caseid):
