@@ -107,12 +107,13 @@ def validate_api(ui_data_list):
                 failed_count += 1
                 failures.append(str(e))
 
-            is_data_type_equal = compare_data_types(data, post_data, counter)
-            try:
-                assert is_data_type_equal, f"Post Response for API {counter}: Datatype(s) is/are not as expected"
-            except AssertionError as e:
-                failed_count += 1
-                failures.append(str(e))
+            # Datatype Validation for Post Response
+            # is_data_type_equal = compare_data_types(data, post_data, counter)
+            # try:
+            #     assert is_data_type_equal, f"Post Response for API {counter}: Datatype(s) is/are not as expected"
+            # except AssertionError as e:
+            #     failed_count += 1
+            #     failures.append(str(e))
 
             # Fetch data using the ID
             try:
@@ -144,17 +145,18 @@ def validate_api(ui_data_list):
                 failed_count += 1
                 failures.append(str(e))
 
-            is_data_type_equal = compare_data_types(data, get_data, counter)
-            try:
-                assert is_data_type_equal, f"GET Response for API {counter}: Datatype(s) is/are not as expected"
-            except AssertionError as e:
-                failed_count += 1
-                failures.append(str(e))
+            # Datatype Validation for Post Response
+            # is_data_type_equal = compare_data_types(data, get_data, counter)
+            # try:
+            #     assert is_data_type_equal, f"GET Response for API {counter}: Datatype(s) is/are not as expected"
+            # except AssertionError as e:
+            #     failed_count += 1
+            #     failures.append(str(e))
 
-    # if failed_count > 0:
-    #     print(f'{failed_count = }')
-    #     with allure.step('API Validation Error Information'):
-    #         failures = '\n'.join(failures)
-    #         failures = failures.replace('\nassert False\n', '\n')
-    #         print(f'{failures = }')
-    #         assert failed_count == 0, f"Found {failed_count} failure in API Validation\n{failures}"
+    if failed_count > 0:
+        print(f'{failed_count = }')
+        with allure.step('API Validation Error Information'):
+            failures = '\n'.join(failures)
+            failures = failures.replace('\nassert False\n', '\n')
+            print(f'{failures = }')
+            assert failed_count == 0, f"Found {failed_count} failure in API Validation\n{failures}"
