@@ -90,11 +90,29 @@ def validate_api(ui_data_list):
             try:
                 assert post_response.status_code == 200, f"Invalid Status Code for API {counter}: Returned status code: {post_response.status_code}"
             except AssertionError as e:
-                failed_count += 1
-                failures.append(str(e))
+                if post_response.status_code == 422:
+                    error_response = json.loads(post_response.text)
+                    for detail in error_response['detail']:
+                        error_msg = detail['msg']
+                        expected_type = detail['type']
+                        actual_type = type(detail['input'])
+                        value = detail['input']
+                        field = detail['loc'][1]
+                        error_details = (f"\nValidation Error\n"
+                                         f"{error_msg = }\n"
+                                         f"{expected_type = }\n"
+                                         f"{actual_type = }\n"
+                                         f"{value = }\n"
+                                         f"{field = }\n")
+                        print(error_details)
+                        failures.append(error_details)
+                        failed_count += 1
+                else:
+                    failed_count += 1
+                    failures.append(str(e))
 
                 continue
-            
+
             # Extract ID from POST response
             post_data = json.loads(post_response.text)
             id = post_data['id']
@@ -127,8 +145,26 @@ def validate_api(ui_data_list):
             try:
                 assert id_response.status_code == 200, f"Invalid Status Code for API {counter}: Returned status code: {id_response.status_code}"
             except AssertionError as e:
-                failed_count += 1
-                failures.append(str(e))
+                if id_response.status_code == 422:
+                    error_response = json.loads(id_response.text)
+                    for detail in error_response['detail']:
+                        error_msg = detail['msg']
+                        expected_type = detail['type']
+                        actual_type = type(detail['input'])
+                        value = detail['input']
+                        field = detail['loc'][1]
+                        error_details = (f"\nValidation Error\n"
+                                         f"{error_msg = }\n"
+                                         f"{expected_type = }\n"
+                                         f"{actual_type = }\n"
+                                         f"{value = }\n"
+                                         f"{field = }\n")
+                        print(error_details)
+                        failures.append(error_details)
+                        failed_count += 1
+                else:
+                    failed_count += 1
+                    failures.append(str(e))
                 continue
             get_data = json.loads(id_response.text)
 
