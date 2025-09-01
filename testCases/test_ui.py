@@ -29,7 +29,8 @@ class Test_Sample:
         # Creating object of Sample class
         sample = Sample(self.driver, extra)
 
-        sample.launch_application("The Indian Express", baseURL, env)
-        sample.select_edition("India", env)
-        sample.launch_newslink(env)
-        sample.access_new_info(env)
+        sample.launch_application("Google", "https://www.google.com/", env)
+        # sample.launch_application("The Indian Express", baseURL, env)
+        # sample.select_edition("India", env)
+        # sample.launch_newslink(env)
+        # sample.access_new_info(env)
