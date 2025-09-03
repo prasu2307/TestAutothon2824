@@ -9,6 +9,7 @@ from selenium.common import NoSuchElementException
 
 from HelperClasses.API.ValidateAPI import validate_api
 from HelperClasses.UI.Base import Base
+from HelperClasses.UI.SSIMVisualTesting import SSIMVisualEngine, SSIMVisualCheckpoint
 from utilities.customLogger import LogGen
 from utilities.readProperties import ReadConfig
 
@@ -28,6 +29,8 @@ class Sample(Base):
         self.base = Base(self.driver, self.extra)
         # instantiate the logger class
         self.logger = LogGen.loggen()
+        # Initialize SSIM visual testing engine
+        self.ssim_engine = SSIMVisualEngine()
 
     """Page Actions for Sample"""
 
@@ -209,3 +212,98 @@ class Sample(Base):
             self.logger.exception(f"Error occurred launching business\n{e}")
             allure.attach(f"Error occurred launching {self.newsname}\n{e}", "Exception")
             raise Exception(f"Error occurred launching {self.newsname}")
+    def ssim_visual_checkpoint(self, checkpoint_name: str, element_selector: str = None, 
+                              threshold: float = 0.85, browser: str = "chrome") -> dict:
+        """
+        Perform SSIM-based visual checkpoint
+        """
+        try:
+            # Check if baseline exists
+            baseline_path = self.ssim_engine.baseline_dir / f"{checkpoint_name}_{browser}_ssim_baseline.png"
+            
+            if not baseline_path.exists():
+                self.logger.info(f"Creating SSIM baseline for {checkpoint_name}")
+                with allure.step(f"Creating SSIM baseline for {checkpoint_name}"):
+                    baseline_created = self.ssim_engine.create_baseline(
+                        self.driver, checkpoint_name, element_selector, browser
+                    )
+                    self.attach_snap(f"SSIM Baseline Created: {checkpoint_name}")
+                    allure.attach(f"SSIM Baseline created: {baseline_created}", "SSIM Baseline Info")
+                
+                return {
+                    "match": True,
+                    "test_name": checkpoint_name,
+                    "baseline_created": True,
+                    "baseline_path": str(baseline_path),
+                    "comparison_method": "SSIM"
+                }
+            
+            # Perform SSIM comparison
+            with allure.step(f"Performing SSIM visual comparison for {checkpoint_name}"):
+                result = self.ssim_engine.ssim_visual_assert(
+                    self.driver, checkpoint_name, element_selector, threshold, browser
+                )
+                
+                if result["match"]:
+                    self.logger.info(f"SSIM Visual checkpoint '{checkpoint_name}' PASSED (SSIM: {result.get('ssim_score', 0):.3f})")
+                    with allure.step(f"✅ SSIM Visual checkpoint '{checkpoint_name}' PASSED"):
+                        allure.attach(f"SSIM Score: {result.get('ssim_score', 0):.3f}\nThreshold: {threshold}", 
+                                    "SSIM Test Results")
+                        if result.get("visualization_path"):
+                            with open(result["visualization_path"], "rb") as f:
+                                allure.attach(f.read(), name=f"SSIM Pass Visualization - {checkpoint_name}", 
+                                            attachment_type=allure.attachment_type.PNG)
+                else:
+                    self.logger.error(f"SSIM Visual checkpoint '{checkpoint_name}' FAILED (SSIM: {result.get('ssim_score', 0):.3f})")
+                    with allure.step(f"❌ SSIM Visual checkpoint '{checkpoint_name}' FAILED"):
+                        allure.attach(f"SSIM Score: {result.get('ssim_score', 0):.3f}\nThreshold: {threshold}\nError: Visual comparison failed", 
+                                    "SSIM Test Results")
+                        if result.get("visualization_path"):
+                            with open(result["visualization_path"], "rb") as f:
+                                allure.attach(f.read(), name=f"SSIM Diff Visualization - {checkpoint_name}", 
+                                            attachment_type=allure.attachment_type.PNG)
+                
+                return result
+                
+        except Exception as e:
+            self.logger.exception(f"Error in SSIM visual checkpoint '{checkpoint_name}': {e}")
+            allure.attach(f"Error in SSIM visual checkpoint '{checkpoint_name}': {e}", "SSIM Error")
+            return {
+                "match": False,
+                "error": str(e),
+                "test_name": checkpoint_name,
+                "comparison_method": "SSIM"
+            }
+    
+    def create_ssim_baseline(self, test_name: str, element_selector: str = None, 
+                            browser: str = "chrome") -> str:
+        """
+        Create SSIM baseline for visual testing
+        """
+        try:
+            with allure.step(f"Creating SSIM baseline for {test_name}"):
+                baseline_path = self.ssim_engine.create_baseline(
+                    self.driver, test_name, element_selector, browser
+                )
+                self.logger.info(f"SSIM baseline created: {baseline_path}")
+                self.attach_snap(f"SSIM Baseline: {test_name}")
+                allure.attach(f"SSIM Baseline created: {baseline_path}", "SSIM Baseline Info")
+                return baseline_path
+        except Exception as e:
+            self.logger.exception(f"Error creating SSIM baseline for '{test_name}': {e}")
+            allure.attach(f"Error creating SSIM baseline for '{test_name}': {e}", "SSIM Baseline Error")
+            raise Exception(f"Failed to create SSIM baseline: {e}")
+    
+    def ssim_visual_assert(self, test_name: str, element_selector: str = None, 
+                          threshold: float = 0.85, browser: str = "chrome") -> bool:
+        """
+        Perform SSIM visual assertion and raise exception if failed
+        """
+        result = self.ssim_visual_checkpoint(test_name, element_selector, threshold, browser)
+        
+        if not result.get("match", False) and not result.get("baseline_created", False):
+            error_msg = f"SSIM Visual assertion failed for '{test_name}': SSIM Score {result.get('ssim_score', 0):.3f} < {threshold}"
+            self.logger.error(error_msg)
+            raise AssertionError(error_msg)
+        
+        return True
