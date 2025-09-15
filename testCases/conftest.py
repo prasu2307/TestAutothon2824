@@ -139,15 +139,15 @@ def pytest_sessionstart(session):
         if os.path.exists(output_user_logpath + '\\Logs\\'):
             # Clearing the logs before test runs
             open(output_user_logpath + "\\Logs\\testlog.log", "w").close()
-        #
-        # # Removing the screenshots and results reports before the test runs
-        # if os.path.exists(output_user_logpath + '\\Reports\\'):
-        #     for root, dirs, files in os.walk(output_user_logpath + '\\Reports\\'):
-        #         for file in files:
-        #             os.remove(os.path.join(root, file))
-        #     for root, dirs, files in os.walk(output_user_logpath + '\\Reports\\screenshots\\'):
-        #         for file in files:
-        #             os.remove(os.path.join(root, file))
+
+        # Removing the screenshots and results reports before the test runs
+        if os.path.exists(output_user_logpath + '\\Reports\\'):
+            for root, dirs, files in os.walk(output_user_logpath + '\\Reports\\'):
+                for file in files:
+                    os.remove(os.path.join(root, file))
+            for root, dirs, files in os.walk(output_user_logpath + '\\Reports\\screenshots\\'):
+                for file in files:
+                    os.remove(os.path.join(root, file))
 
         # Removing the downloaded report files before the test runs
         if os.path.exists(output_user_logpath + '\\ActualOutputs\\'):
@@ -175,3 +175,53 @@ def pytest_sessionstart(session):
         msg.showerror('Error!', str(v))
     except PermissionError as p:
         msg.showerror('File is already opened. Try closing the file and try again', str(p))
+
+
+@pytest.hookimpl(trylast=True)
+def pytest_sessionfinish(session, exitstatus):
+    try:
+        # *** Generation of Allure HTML report Start ***
+        tnow = datetime.datetime.now().strftime('%Y%m%d%H%M')
+        allure_cmd = f'allure generate --single-file {output_user_logpath}\\Allure_reports\\ --clean'
+        new_html_report_name = f"HTML_Report_{str(tnow)}.html"
+        # Run the command to generate HTML report
+        output = subprocess.check_output(f"{allure_cmd}", shell=True)
+        output = output.decode("utf-8")
+        logger.info(f"Allure Generate command Output***\n{output}")
+        src_path = r'.\allure-report\index.html'
+        dest_path = output_user_logpath + f'\\Reports\\'
+        # *** Copying HTML report to Reports Folder ***
+        if output.__contains__('Report successfully generated to allure-report'):
+            # Construct the new path
+            new_path = os.path.join(dest_path, new_html_report_name)
+            # Copy the file from src_path to dest_path
+            shutil.copy(src_path, new_path)
+        # End if
+        # *** Generation of Allure HTML report complete ***
+
+        html_files = glob.glob(output_user_logpath + '\\Reports\\HTML_Report_*.html')
+        # Create destination path if not exist ##########
+        dest_path = output_user_logpath + f'\\Archive_Reports\\'
+        if not os.path.exists(dest_path):
+            # Create the folder
+            os.makedirs(dest_path)
+        # *** Copying the html reports to Archive_Reports folder ***
+        if len(html_files) != 0:
+            for j in html_files:
+                rep_path = os.path.abspath(j)
+                dest_path = output_user_logpath + f'\\Archive_Reports\\'
+                # os.system(f'copy {rep_path} {dest_path}')
+                shutil.copy(rep_path, dest_path)
+
+    except IndexError as ie:
+        print(f"There is no report with filename starting with Report_. Exception details: {ie}")
+    except FileNotFoundError as e:
+        print('Report not found', str(e))
+    except (NameError, ValueError) as n:
+        print(str(n))
+    except PermissionError as p:
+        print('File is already opened, Unable to update the TC summary sheet. Try closing the file and try again')
+        msg.showerror('File is already opened, Unable to update the TC summary sheet. Try closing the file and '
+                      'try again', str(p))
+    except Exception as err:
+        print(str(err))
