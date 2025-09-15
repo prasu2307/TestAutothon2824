@@ -18,7 +18,8 @@ execution_status = {}
 
 COMMON_COMPONENTS = {
     'UI Tests': 'ui_testrunner.py',
-    'Mobile Tests': 'mob_testrunner.py'
+    'Mobile Tests': 'mob_testrunner.py',
+    'Parallel Run': 'all_testrunner.py'
 }
 
 WORKSPACE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -225,7 +226,8 @@ async def get_reports():
     # Component-specific report paths
     COMPONENT_PATHS = {
         'UI Tests': 'Outputs/Reports',
-        'Mobile Tests': 'Outputs/Reports'
+        'Mobile Tests': 'Outputs/Reports',
+        'Parallel Run': 'Outputs/Reports'
     }
 
     for job_id, job_data in execution_status.items():
