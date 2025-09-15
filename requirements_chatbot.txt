@@ -1,0 +1,11 @@
+# Additional requirements for AI Chatbot Orchestrator
+# Add these to your existing requirements.txt if needed
+
+# Web interface (optional)
+flask>=2.0.0
+
+# Enhanced NLP (optional - for future improvements)
+# nltk>=3.8
+# spacy>=3.4.0
+
+# All existing TestAutothon2824 dependencies remain unchanged
