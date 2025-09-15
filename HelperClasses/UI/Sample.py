@@ -17,8 +17,8 @@ output_user_logpath = os.getcwd() + '\\Outputs'
 
 
 class Sample(Base):
-    newsname = ReadConfig.get_news_name()
-    no_of_sliders = ReadConfig.get_no_of_carousel()
+    # newsname = ReadConfig.get_news_name()
+    # no_of_sliders = ReadConfig.get_no_of_carousel()
     """Constructor of the Sample class"""
     def __init__(self, driver, extra):
         # initializing the driver from base class
@@ -212,8 +212,9 @@ class Sample(Base):
             self.logger.exception(f"Error occurred launching business\n{e}")
             allure.attach(f"Error occurred launching {self.newsname}\n{e}", "Exception")
             raise Exception(f"Error occurred launching {self.newsname}")
-    def ssim_visual_checkpoint(self, checkpoint_name: str, element_selector: str = None, 
-                              threshold: float = 0.85, browser: str = "chrome") -> dict:
+
+    def ssim_visual_checkpoint(self, checkpoint_name: str, element_selector: str = None,
+                               threshold: float = 0.85, browser: str = "chrome") -> dict:
         """
         Perform SSIM-based visual checkpoint
         """

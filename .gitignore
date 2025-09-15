@@ -3,3 +3,7 @@
 /workspace.xml
 __pycache__/
 .pytest_cache/
+.idea/*
+/Outputs/*
+/Outputs/Logs/*
+/allure-report/*

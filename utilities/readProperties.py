@@ -14,8 +14,10 @@ class ReadConfig:
     # static method helps you read the function in another file without instantiating the class
     @staticmethod
     def getApplicationURL(env):
-        if env == 'non-prod':
-            return f"https://indianexpress.com/"
+        url = ''
+        if env == 'uat':
+            url = config.get('commonInfo', 'application_url')
+        return url
 
     @staticmethod
     def get_news_name():
@@ -39,7 +41,7 @@ class ReadConfig:
 
     @staticmethod
     def getORFilePath(env):
-        if env == 'non-prod':
+        if env == 'uat':
             OR = config.get('commonInfo', 'OR_Testenv')
         return OR
 
@@ -48,10 +50,10 @@ class ReadConfig:
         headless = config.get('commonInfo', 'headless')
         return headless
 
-    # @staticmethod
-    # def getS2TPath():
-    #     s2tpath = config.get('commonInfo', 's2t')
-    #     return s2tpath
+    @staticmethod
+    def get_env():
+        env = config.get('commonInfo', 'environment')
+        return env
 
     # To get the path of the given filename in the specific directory
     @staticmethod
