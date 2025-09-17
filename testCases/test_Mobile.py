@@ -48,7 +48,7 @@ class Test_appium_mobile:
         options.automation_name = 'UiAutomator2'
         options.platformVersion = '15'
         options.auto_grant_permissions = True
-        options.app = r"C:\Users\sacr\Downloads\app-stepin.apk"
+        options.app = r"C:\Users\makprasa\Downloads\app-stepin.apk"
         driver = webdriver.Remote("http://127.0.0.1:4723", options=options)
         # request.cls.driver = driver
         yield driver
