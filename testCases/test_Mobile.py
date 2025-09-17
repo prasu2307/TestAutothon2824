@@ -44,7 +44,7 @@ class Test_appium_mobile:
         options.platform_name = 'Android'
         options.udid = 'emulator-5554'
         # options.device_name = 'Pixel 8 Pro API 36'
-        options.device_name = 'Medium Phone API 36'
+        options.device_name = 'Medium Phone API 35'
         options.automation_name = 'UiAutomator2'
         options.platformVersion = '15'
         options.auto_grant_permissions = True
