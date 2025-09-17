@@ -121,7 +121,7 @@ def init_driver(request):
         options.add_experimental_option("detach", True)
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
-        web_driver = webdriver.Edge(service=Service(), options=options)
+        web_driver = webdriver.Edge(service=Service(executable_path=r".\DependencyFiles\msedgedriver.exe"), options=options)
 
     request.cls.driver = web_driver
     # web_driver.maximize_window()
