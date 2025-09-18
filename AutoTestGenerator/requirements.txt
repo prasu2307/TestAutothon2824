@@ -1,0 +1,9 @@
+# AutoTestGenerator Requirements
+# This module uses only built-in Python libraries
+# No external dependencies required
+
+# Optional: For enhanced functionality (already in main project)
+# pytest>=7.0.0
+# selenium>=4.0.0
+# requests>=2.28.0
+# appium-python-client>=2.0.0
